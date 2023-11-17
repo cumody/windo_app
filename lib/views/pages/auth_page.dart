@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:windo_app/utilities/enums.dart';
+import 'package:windo_app/utilities/routes.dart';
 import 'package:windo_app/views/widgets/main_buttons.dart';
 
 class AuthPage extends StatefulWidget {
@@ -13,6 +14,8 @@ class _AuthPageState extends State<AuthPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _emailFocusedNode = FocusNode();
+  final _passwordFocusedNode = FocusNode();
   var _authType = AuthFormType.login;
 
   @override
@@ -37,6 +40,10 @@ class _AuthPageState extends State<AuthPage> {
                 const SizedBox(height: 80.0),
                 TextFormField(
                   controller: _emailController,
+                  focusNode: _emailFocusedNode,
+                  onEditingComplete: () =>
+                      FocusScope.of(context).requestFocus(_passwordFocusedNode),
+                  textInputAction: TextInputAction.next,
                   validator: (val) =>
                       val!.isEmpty ? 'Please enter your email!' : null,
                   decoration: const InputDecoration(
@@ -46,6 +53,7 @@ class _AuthPageState extends State<AuthPage> {
                 ),
                 const SizedBox(height: 24.0),
                 TextFormField(
+                  focusNode: _passwordFocusedNode,
                   controller: _passwordController,
                   validator: (val) =>
                       val!.isEmpty ? 'Please enter your password!' : null,
@@ -70,7 +78,13 @@ class _AuthPageState extends State<AuthPage> {
                   child: MainButton(
                     text:
                         _authType == AuthFormType.login ? 'Login' : 'Register',
-                    onTap: () {},
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        Navigator.of(context).pushNamed(AppRoutes.bottomNavBar);
+                      } else {
+                        debugPrint('Not Valid');
+                      }
+                    },
                   ),
                 ),
                 const SizedBox(height: 16.0),
@@ -84,6 +98,7 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                     onTap: () {
                       setState(() {
+                        _formKey.currentState!.reset();
                         if (_authType == AuthFormType.login) {
                           _authType = AuthFormType.register;
                         } else {
