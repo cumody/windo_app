@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:windo_app/models/product.dart';
 
@@ -11,7 +10,7 @@ class ListItemHome extends StatelessWidget {
     return SizedBox(
       height: 200,
       child: DecoratedBox(
-          decoration: BoxDecoration(),
+          decoration: const BoxDecoration(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -67,12 +66,18 @@ class ListItemHome extends StatelessWidget {
                     .bodyLarge!
                     .copyWith(fontWeight: FontWeight.bold),
               ),
-              Text(
-                '${product.price}\$',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyLarge!
-                    .copyWith(fontWeight: FontWeight.bold, color: Colors.grey),
+              Text.rich(
+                TextSpan(children: [
+                  TextSpan(
+                      text: '${product.price}\$ ',
+                      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey,
+                          decoration: TextDecoration.lineThrough)),
+                  TextSpan(
+                      text:
+                          '${product.price * (product.discountValue) / 100}\$')
+                ]),
               )
             ],
           )),

@@ -13,9 +13,10 @@ Route<dynamic> onGenerate(RouteSettings settings) {
       );
     case AppRoutes.bottomNavBar:
       return CupertinoPageRoute(
-        builder: (_) => BottomNavBar(),
+        builder: (_) => const BottomNavBar(),
         settings: settings,
       );
+    case AppRoutes.landingPageRoute:
     default:
       return CupertinoPageRoute(
         builder: (_) => const LandingPage(),
