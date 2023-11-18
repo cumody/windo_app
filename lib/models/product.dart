@@ -7,7 +7,7 @@ class Product {
   final String title;
   final int price;
   final String imgUrl;
-  final int? discountValue;
+  final int discountValue;
   final String category;
   final double? rate;
   Product({
@@ -15,7 +15,7 @@ class Product {
     required this.title,
     required this.price,
     required this.imgUrl,
-    this.discountValue,
+    this.discountValue = 0,
     this.category = 'Other',
     this.rate,
   });
@@ -59,6 +59,7 @@ List<Product> dummyProducts = [
     title: 'Underwears',
     price: 300,
     imgUrl: AppAssets.listItemImage[4],
+    discountValue: 3,
     category: 'Clothes',
   ),
   Product(

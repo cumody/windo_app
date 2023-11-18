@@ -4,7 +4,7 @@ import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:windo_app/views/pages/home_page.dart';
 
 class BottomNavBar extends StatefulWidget {
-  BottomNavBar({super.key});
+  const BottomNavBar({super.key});
 
   @override
   State<BottomNavBar> createState() => _BottomNavBarState();
@@ -15,7 +15,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
       PersistentTabController(initialIndex: 0);
 
   List<Widget> _buildScreens() {
-    return [HomePage(), Container(), Container(), Container(), Container()];
+    return [
+      const HomePage(),
+      Container(),
+      Container(),
+      Container(),
+      Container()
+    ];
   }
 
   List<PersistentBottomNavBarItem> _navBarsItems() {
